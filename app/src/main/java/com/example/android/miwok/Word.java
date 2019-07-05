@@ -8,6 +8,7 @@ public class Word {
     public Word(String defaultTranslation, String miwokTranslation){
         mDefaultTranslation = defaultTranslation;
         mMiwokTranslation = miwokTranslation;
+        mImageResourceId = -1;
     }
 
     public Word(String defaultTranslation, String miwokTranslation, int imageResourceId){
