@@ -1,17 +1,17 @@
 package com.example.android.miwok;
 
-import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class NumbersActivity extends AppCompatActivity {
+
+    private MediaPlayer mMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class NumbersActivity extends AppCompatActivity {
         setContentView(R.layout.word_list);
 
         //Create an array of words
-        ArrayList<Word> words = new ArrayList<>();
+        final ArrayList<Word> words = new ArrayList<>();
 
         words.add(new Word("one", "lutti", R.drawable.number_one, R.raw.number_one));
         words.add(new Word("two", "otiiko", R.drawable.number_two, R.raw.number_two));
@@ -51,19 +51,14 @@ public class NumbersActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         //following code is for audio
-        final Context context = this;
         // Set a click listener on that View
-        listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             // The code in this method will be executed when the numbers View is clicked on.
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView defaultTextView = view.findViewById(R.id.default_text_view);
-                String myStr = "number_" + defaultTextView.getText().toString();
-                //Log.v("NumberActivity", myStr);
-                //Word currentWord = getItem(position);
-                int rawId = getResources().getIdentifier(myStr, "raw", getPackageName());
-                MediaPlayer mediaPlayer = MediaPlayer.create(context, rawId);
-                mediaPlayer.start();
+                Word word = words.get(position);
+                mMediaPlayer = MediaPlayer.create(NumbersActivity.this, word.getAudioResourceId());
+                mMediaPlayer.start();
             }
         });
     }
