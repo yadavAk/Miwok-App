@@ -15,11 +15,10 @@
  */
 package com.example.android.miwok;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,8 +29,16 @@ public class MainActivity extends AppCompatActivity {
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
 
+        ViewPager viewPager = findViewById(R.id.viewpager);
 
-        // Find the View that shows the numbers category
+        CategoryAdapter adapter = new CategoryAdapter(getSupportFragmentManager());
+
+        TabLayout tabLayout = new TabLayout(this);
+        tabLayout.setupWithViewPager(viewPager);
+
+        viewPager.setAdapter(adapter);
+
+        /*// Find the View that shows the numbers category
         TextView numbers = findViewById(R.id.numbers);
 
         // Set a click listener on that View
@@ -77,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent phrasesIntent = new Intent(MainActivity.this, PhrasesActivity.class);
                 startActivity(phrasesIntent);
             }
-        });
+        });*/
     }
 
 }
